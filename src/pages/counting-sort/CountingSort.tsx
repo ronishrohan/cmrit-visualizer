@@ -1,9 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import Stepper from "@/components/Main/Stepper";
+import Layout from "@/components/Main/Layout";
+import { Input } from "@/components/ui/input";
 
 const DURATION = 700;
+
+const CountingSort2 = () => {
+  const [current, setCurrent] = useState(0);
+  const [input, setInput] = useState([]);
+  const inputRef = useRef(null);
+
+  const handleAdd = () => {
+    if (inputRef.current && inputRef.current.value) {
+      const value = parseInt(inputRef.current.value, 10);
+      if (!isNaN(value)) {
+        setInput((prev) => [...prev, value]);
+        inputRef.current.value = ""; // Clear the input after adding
+      } else {
+        alert("Please enter a valid number");
+      }
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="text-2xl font-bold w-full text-center">Counting Sort</div>
+      <Stepper current={current}>
+        <div className="flex gap-2 flex-col w-full justify-center items-center">
+          <div className="flex gap-2">
+            {input.map((number, index) => (
+              <Cell number={number} key={index} className="border p-2"></Cell>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <Input
+              ref={inputRef}
+              onKeyDown={(e) => {
+                if (e.keyCode == 13) handleAdd();
+              }}
+              className="w-[90px]"
+              placeholder="Value"
+              type="number" // Use type="number" for numeric input
+            />
+            <Button onClick={handleAdd}>Add</Button>
+          </div>
+          <Button className="mt-6">Perform Counting Sort</Button>
+        </div>
+        <div>test2</div>
+      </Stepper>
+    </Layout>
+  );
+};
 
 const CountingSort = () => {
   const [numbers, setNumbers] = useState<number[] | null>(null);
@@ -162,11 +212,11 @@ function Cell({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       // transition={{ delay: index * 0.02 }}
-      className={`size-9 flex items-center justify-center border-2 border-border   rounded-md ${type === "pop" && number > 0 ? "bg-primary text-background" : ""}`}
+      className={`size-9 flex items-center justify-center border-2 border-border   rounded-sm ${type === "pop" && number > 0 ? "bg-primary text-background" : ""}`}
     >
       {number}
     </motion.div>
   );
 }
 
-export default CountingSort;
+export { CountingSort, CountingSort2 };
