@@ -1,10 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import CountingSortDescription from "./pages/counting-sort/CountingSortDescription";
-import {
-  CountingSort,
-  CountingSort2,
-} from "./pages/counting-sort/CountingSort";
+import { CountingSort2 } from "./pages/counting-sort/CountingSort";
 
 const MainPage = () => {
   return (
