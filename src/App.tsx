@@ -1,18 +1,17 @@
+import * as React from "react";
 import { Route, Routes } from "react-router-dom";
-
-import CountingSortDescription from "./pages/counting-sort/CountingSortDescription";
-import { CountingSort2 } from "./pages/counting-sort/CountingSort";
+import KnapsackDescription from "./pages/knapsack/KnapsackDescription";
+import Knapsack from "./pages/knapsack/Knapsack";
 
 const MainPage = () => {
   return (
     <Routes>
       <Route path="lab">
-        <Route path="counting-sort">
-          <Route index element={<CountingSortDescription />} />
-          <Route path="simulate" element={<CountingSort2 />}></Route>
+        <Route path="knapsack">
+          <Route index element={<KnapsackDescription />} />
+          <Route path="simulate" element={<Knapsack />}></Route>
         </Route>
       </Route>
-      {/* <Route path="/counting-sort"></Route> */}
     </Routes>
   );
 };
